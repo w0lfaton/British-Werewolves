@@ -4,12 +4,12 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NeuronNetworkData {
+public class NeuronLayerData {
     private static final int INPUT_LAYER_INDEX = 0;
-    private static NeuronNetworkData instance = new NeuronNetworkData();
-    private List<NeuronNetwork> neuronNetworkList = new LinkedList<>();
+    private static NeuronLayerData instance = new NeuronLayerData();
+    private List<NeuronLayer> neuronLayerList = new LinkedList<>();
 
-    private NeuronNetworkData() {
+    private NeuronLayerData() {
         try {
             loadData();
         } catch (IOException e) {
@@ -17,11 +17,11 @@ public class NeuronNetworkData {
         }
     }
 
-    public NeuronNetwork getNeuronNetwork(int networkId) {
-        return this.neuronNetworkList.get(networkId-1);
+    public NeuronLayer getNeuronLayer(int layerId) {
+        return this.neuronLayerList.get(layerId-1);
     }
 
-    public static NeuronNetworkData getInstance() {
+    public static NeuronLayerData getInstance() {
         return instance;
     }
 
@@ -31,8 +31,8 @@ public class NeuronNetworkData {
             File file = new File("configuration.txt");
             FileWriter fileWriter = new FileWriter(file);
             bufferedWriter = new BufferedWriter(fileWriter);
-            for (NeuronNetwork network : neuronNetworkList) {
-                bufferedWriter.write(network.toString());
+            for (NeuronLayer layer : neuronLayerList) {
+                bufferedWriter.write(layer.toString());
                 bufferedWriter.write("\n");
             }
             return true;
@@ -55,25 +55,25 @@ public class NeuronNetworkData {
             //Read line
             String dataLine = bufferedReader.readLine();
             while (dataLine != null) {
-                String[] networks = dataLine.split("<network>");
-                for (String networkcheck : networks) {
-                    if (networkcheck.equals("")) {
+                String[] layers = dataLine.split("<layer>");
+                for (String layerCheck : layers) {
+                    if (layerCheck.equals("")) {
                         continue;
                     }
                     List<Neuron> neuronList = new LinkedList<>();
                     //Split into an array with id as index 0.
-                    String[] separated = networkcheck.split(",", 2);
+                    String[] separated = layerCheck.split(",", 2);
                     int networkId;
                     for (int i = 0; i < separated.length; i++) {
-                        String networkLine = "";
+                        String layerLine = "";
                         if (i == 0) {
                             //Store first string in array as id for network.
                             networkId = Integer.parseInt(separated[i]);
                         } else {
                             //Remove '[' and ']' from beginning and end.
-                            networkLine = separated[i].substring(1, separated[i].length() - 1);
+                            layerLine = separated[i].substring(1, separated[i].length() - 1);
                             //Split string with regex of ', '.
-                            String[] neuronLines = networkLine.split("<neuron>");
+                            String[] neuronLines = layerLine.split("<neuron>");
                             for (int j = 0; j < neuronLines.length; j++) {
                                 if (neuronLines[j].equals("")) {
                                     continue;
@@ -92,7 +92,7 @@ public class NeuronNetworkData {
                                         loadedNeuron.addNeuronConnection(connection);
                                     }
                                 }
-                                neuronList.add(loadedNeuron);
+                                neuronList.add(loadedNeuron.getNeuronId(), loadedNeuron);
                             }
                         }
                     }
@@ -113,8 +113,8 @@ public class NeuronNetworkData {
 
     private boolean loadNetworkToList(List<Neuron> neuronList) {
         if (neuronList != null) {
-            NeuronNetwork neuronNetwork = NeuronNetwork.buildNetworkFromList(neuronList);
-            this.neuronNetworkList.add(neuronNetwork.getId()-1, neuronNetwork);
+            NeuronLayer neuronLayer = NeuronLayer.buildNetworkFromList(neuronList);
+            this.neuronLayerList.add(neuronLayer.getId()-1, neuronLayer);
             return true;
         }
         return false;
@@ -124,6 +124,6 @@ public class NeuronNetworkData {
 
     @Override
     public String toString() {
-        return instance.neuronNetworkList.toString();
+        return instance.neuronLayerList.toString();
     }
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    private static NeuronNetworkData neuronNetworkData = NeuronNetworkData.getInstance();
+    private static NeuronLayerData neuronLayerData = NeuronLayerData.getInstance();
 
     public static void main(String[] args) {
         try {
@@ -19,13 +19,13 @@ public class Main {
                 String input = scanner.next();
                 if (input.equals("save")) {
                     try {
-                        neuronNetworkData.saveData();
+                        neuronLayerData.saveData();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else if (input.equals("display")) {
-                    String[] networks = neuronNetworkData.toString()
-                            .substring(1, neuronNetworkData.toString().length()-1)
+                    String[] networks = neuronLayerData.toString()
+                            .substring(1, neuronLayerData.toString().length()-1)
                             .split("<network>");
                     for (String network : networks) {
                         if (network.equals("")) {

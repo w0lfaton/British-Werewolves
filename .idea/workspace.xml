@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8009282b-8b48-43a8-918e-2f6b6874739e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Neuron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Neuron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/NeuronNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/NeuronLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/NeuronNetworkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/NeuronLayerData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,5 +52,11 @@
       <updated>1609432827195</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="441" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609530639544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="441" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/0.-1080.1920.1080@0.0.1920.1040" timestamp="1609530639544" />
   </component>
 </project>

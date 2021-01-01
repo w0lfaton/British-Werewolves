@@ -4,17 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Neuron {
-    private int id;
+    private int layerId;
     private double value;
     private double weight;
-    private int action;
-    private List<String> connectionActionList = new LinkedList<>();
+    private int neuronId;
+    private List<String> connectionList = new LinkedList<>();
 
-    public Neuron(int id, double value, double weight, int action) {
-        this.id = id;
+    public Neuron(int layerId, double value, double weight, int neuronId) {
+        this.layerId = layerId;
         this.value = value;
         this.weight = weight;
-        this.action = action;
+        this.neuronId = neuronId;
     }
 
     public double getValue() {
@@ -25,12 +25,12 @@ public class Neuron {
         return weight;
     }
 
-    public int getAction() {
-        return action;
+    public int getNeuronId() {
+        return neuronId;
     }
 
-    public int getId() {
-        return id;
+    public int getLayerId() {
+        return layerId;
     }
 
     public void setValue(double value) {
@@ -41,29 +41,29 @@ public class Neuron {
         this.weight = weight;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLayerId(int layerId) {
+        this.layerId = layerId;
     }
 
-    public void setAction(int action) {
-        this.action = action;
+    public void setNeuronId(int neuronId) {
+        this.neuronId = neuronId;
     }
 
-    private boolean isConnectionInList(int id, int action) {
-        for (String connection : connectionActionList) {
+    private boolean isConnectionInList(int layerId, int neuronId) {
+        for (String connection : connectionList) {
             String[] connectionData = connection.split(";");
-            if (Integer.parseInt(connectionData[0]) == id && Integer.parseInt(connectionData[1]) == action) {
+            if (Integer.parseInt(connectionData[0]) == layerId && Integer.parseInt(connectionData[1]) == neuronId) {
                 return true;
             }
         }
         return false;
     }
 
-    public String getNeuronConnection(int id, int action) {
-        if (isConnectionInList(id, action)) {
-            for (String connection : connectionActionList) {
+    public String getNeuronConnection(int layerId, int neuronId) {
+        if (isConnectionInList(layerId, neuronId)) {
+            for (String connection : connectionList) {
                 String[] connectionData = connection.split(";");
-                if (Integer.parseInt(connectionData[0]) == id && Integer.parseInt(connectionData[1]) == action) {
+                if (Integer.parseInt(connectionData[0]) == layerId && Integer.parseInt(connectionData[1]) == neuronId) {
                     return connection;
                 }
             }
@@ -71,11 +71,11 @@ public class Neuron {
         return "";
     }
 
-    public boolean addNeuronConnection(int id, int action, double weight) {
-        if (isConnectionInList(id, action)) {
+    public boolean addNeuronConnection(int layerId, int neuronId, double weight) {
+        if (isConnectionInList(layerId, neuronId)) {
             return false;
         }
-        this.connectionActionList.add(id + ";" + action + ";" + weight);
+        this.connectionList.add(layerId + ";" + neuronId + ";" + weight);
         return true;
     }
 
@@ -84,15 +84,15 @@ public class Neuron {
         if (isConnectionInList(Integer.parseInt(connectionValues[0]), Integer.parseInt(connectionValues[1]))) {
             return false;
         }
-        this.connectionActionList.add(connection);
+        this.connectionList.add(connection);
         return true;
     }
 
     public boolean updateNeuronConnection(String connection) {
         String[] connectionValues = connection.split(";");
         if (isConnectionInList(Integer.parseInt(connectionValues[0]), Integer.parseInt(connectionValues[1]))) {
-            this.connectionActionList.set(
-                    this.connectionActionList.indexOf(
+            this.connectionList.set(
+                    this.connectionList.indexOf(
                             getNeuronConnection(Integer.parseInt(connectionValues[0]), Integer.parseInt(connectionValues[1]))),
                     connection);
             return true;
@@ -100,9 +100,9 @@ public class Neuron {
         return false;
     }
 
-    public boolean removeNeuronConnection(int id, int action) {
-        if (isConnectionInList(id, action)) {
-            this.connectionActionList.remove(getNeuronConnection(id, action));
+    public boolean removeNeuronConnection(int layerId, int neuronId) {
+        if (isConnectionInList(layerId, neuronId)) {
+            this.connectionList.remove(getNeuronConnection(layerId, neuronId));
             return true;
         }
         return false;
@@ -113,22 +113,22 @@ public class Neuron {
     @Override
     public String toString() {
         return "<neuron>" +
-                id +
+                layerId +
                 ";" +
                 value +
                 ";" +
                 weight +
                 ";" +
-                action +
+                neuronId +
                 ";" +
-                connectionActionList;
+                connectionList;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Neuron) {
-            if (((Neuron) obj).action == this.action)
-                return ((Neuron) obj).id == this.id;
+            if (((Neuron) obj).neuronId == this.neuronId)
+                return ((Neuron) obj).layerId == this.layerId;
         }
         return false;
     }
