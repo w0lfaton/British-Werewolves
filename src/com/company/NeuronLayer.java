@@ -82,7 +82,7 @@ public class NeuronLayer {
         return false;
     }
 
-    public static NeuronLayer buildEmptyNetwork(int neuronCount) {
+    public static NeuronLayer buildEmptyLayer(int neuronCount) {
         List<Neuron> resultNeuronList = new LinkedList<>();
         for (int i = 0; i < neuronCount; i++) {
             Neuron neuron = new Neuron(i,0,0,i);
@@ -91,7 +91,7 @@ public class NeuronLayer {
         return new NeuronLayer(resultNeuronList);
     }
 
-    public static NeuronLayer buildNetworkFromList(List<Neuron> neuronList) {
+    public static NeuronLayer buildLayerFromList(List<Neuron> neuronList) {
         if (neuronList == null) {
             return null;
         }

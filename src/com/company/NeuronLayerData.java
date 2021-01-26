@@ -96,7 +96,7 @@ public class NeuronLayerData {
                             }
                         }
                     }
-                    loadNetworkToList(neuronList);
+                    loadLayerToList(neuronList);
                 }
                 dataLine = bufferedReader.readLine();
             }
@@ -111,9 +111,9 @@ public class NeuronLayerData {
         }
     }
 
-    private boolean loadNetworkToList(List<Neuron> neuronList) {
+    private boolean loadLayerToList(List<Neuron> neuronList) {
         if (neuronList != null) {
-            NeuronLayer neuronLayer = NeuronLayer.buildNetworkFromList(neuronList);
+            NeuronLayer neuronLayer = NeuronLayer.buildLayerFromList(neuronList);
             this.neuronLayerList.add(neuronLayer.getId()-1, neuronLayer);
             return true;
         }
